@@ -61,13 +61,11 @@ const displayAllNews = categoryNews => {
     } else {
         document.getElementById('count-item').innerText = 'No';
     }
-    // sorting most viewed news
+    // most viewed news sorting
     categoryNews.sort((a, b) => (b.total_view > a.total_view) ? 1 : ((a.total_view > b.total_view) ? -1 : 0));
 
     categoryNews.forEach(news => {
-        // console.log(news);
         const cardDiv = document.createElement('div');
-        // cardDiv.classList.add('row');
         cardDiv.innerHTML = `
         <div  class="card mb-4 p-4">
         <div class="row g-0">
@@ -102,13 +100,39 @@ const displayAllNews = categoryNews => {
         newsContainer.appendChild(cardDiv);
     });
 
-    // loader stopped
+    // spinner stop
     toggleSpinner(false);
 }
 
+// news details
+const loadNewsDetails = async _id => {
+    try {
+        const url = `https://openapi.programming-hero.com/api/news/${_id}`
+        const res = await fetch(url);
+        const data = await res.json();
+        const detailsNews = data.data;
+        displayNewsDetails(detailsNews);
 
+    } catch (error) {
+        alert(error);
+    }
+}
 
+const displayNewsDetails = newsDetails => {
+    const newsModalLabel = document.getElementById('newsModalLabel');
+    newsModalLabel.innerText = newsDetails[0].title;
+    const modalBody = document.getElementById('details-news');
+    modalBody.innerHTML = `
+    <img class="w-100" src="${newsDetails[0].image_url}">
+    <p> ${newsDetails[0].details} </p>
+    <div class="d-flex align-items-center justify-content-around">
+        <img class="image-round" src="${newsDetails[0].author.img}" alt="">
+        <h6>${newsDetails[0].author.name ? newsDetails[0].author.name : 'No Data Found'}</h6>
+        <p>${newsDetails[0].author.published_date}</p>
+    </div>
+    `;
 
+}
 
 
 setAllMenu();
