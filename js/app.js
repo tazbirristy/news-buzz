@@ -83,7 +83,7 @@ const displayAllNews = categoryNews => {
                         <img class="image-round" src="${news.author.img}" alt="">
                         <div class="ms-3">
                             <h6 class="fs-5">${news.author.name ? news.author.name : ' No Data Found'}</h6>
-                            <h6 class="fs-6 text-muted">${news.author.published_date ? news.author.published_date : ' No Data Found'}</h6>
+                            <h6 class="fs-6">${news.author.published_date ? news.author.published_date : ' No Data Found'}</h6>
                         </div>
                     </div>
                     <div>
