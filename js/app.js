@@ -61,4 +61,54 @@ const displayAllNews = categoryNews => {
     } else {
         document.getElementById('count-item').innerText = 'No';
     }
+    // sorting most viewed news
+    categoryNews.sort((a, b) => (b.total_view > a.total_view) ? 1 : ((a.total_view > b.total_view) ? -1 : 0));
+
+    categoryNews.forEach(news => {
+        // console.log(news);
+        const cardDiv = document.createElement('div');
+        // cardDiv.classList.add('row');
+        cardDiv.innerHTML = `
+        <div  class="card mb-4 p-4">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="${news.thumbnail_url}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">${news.title}</h5>
+                    <p class="card-text">${news.details.length > 400 ? news.details.substring(0, 399) + '...' : news.details}</p>
+
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-5">
+                    <div class="d-flex align-items-center">
+                        <img class="image-round" src="${news.author.img}" alt="">
+                        <div class="ms-3">
+                            <h6 class="fs-5">${news.author.name ? news.author.name : ' No Data Found'}</h6>
+                            <h6 class="fs-6 text-muted">${news.author.published_date ? news.author.published_date : ' No Data Found'}</h6>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="fs-5"><i class="fa-regular fa-eye"></i> ${news.total_view ? news.total_view : 'No Data Found'}</h3>
+                    </div>
+                    <div>
+                        <button onclick="loadNewsDetails('${news._id}')" class="border-0 text-primary fw-bold fs-2" data-bs-toggle="modal" data-bs-target="#newsModal"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        `;
+        newsContainer.appendChild(cardDiv);
+    });
+
+    // loader stopped
+    toggleSpinner(false);
 }
+
+
+
+
+
+
+setAllMenu();
