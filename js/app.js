@@ -25,3 +25,30 @@ const setAllMenu = async () => {
     }
 
 }
+
+const getNewsCategoryDetails = async (category_id, category_name) => {
+
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`);
+        const data = await res.json();
+        const allNews = data.data;
+        displayAllNews(allNews);
+
+    } catch (error) {
+        alert(error)
+    }
+    document.getElementById('count-item-name').innerText = category_name;
+}
+
+
+
+
+const displayAllNews = categoryNews => {
+    const newsContainer = document.getElementById('news-container');
+    newsContainer.textContent = '';
+    if (categoryNews.length !== 0) {
+        document.getElementById('count-item').innerText = categoryNews.length;
+    } else {
+        document.getElementById('count-item').innerText = 'No';
+    }
+}
