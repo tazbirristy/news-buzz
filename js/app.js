@@ -126,7 +126,7 @@ const displayNewsDetails = newsDetails => {
     <img class="w-100" src="${newsDetails[0].image_url}">
     <p> ${newsDetails[0].details} </p>
     <div class="d-flex align-items-center justify-content-around">
-        <img class="image-round" src="${newsDetails[0].author.img}" alt="">
+        <img class="image" src="${newsDetails[0].author.img}" alt="">
         <h6>${newsDetails[0].author.name ? newsDetails[0].author.name : 'No Data Found'}</h6>
         <p>${newsDetails[0].author.published_date}</p>
     </div>
